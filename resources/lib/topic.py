@@ -53,5 +53,5 @@ class Main:
 
             utils.add_directory(title, thumbnail, thumbnail,
                                 "%s?action=view-course&url=%s" % (sys.argv[0], urllib.quote_plus(course_url)))
-        control.directory_end()
+        control.directory_end(False)
         return

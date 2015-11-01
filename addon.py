@@ -1,10 +1,10 @@
 
 ##############################################################################
 #
-# Microsoft Channel 9 - Video addon for Kodi
-# http://channel9.msdn.com
+# Microsoft Virtual Academy plugin for Kodi
+# https://mva.microsoft.com
 #
-# Version 2.0
+# Version 1.0
 #
 #
 # https://github.com/camalot/plugin.video.microsoftvirtualacademy
@@ -15,7 +15,7 @@ __addon__ = "Microsoft Virtual Academy"
 __author__ = "Ryan Conrad"
 __url__ = "https://github.com/camalot/plugin.video.microsoftvirtualacademy"
 __date__ = "10/27/2015"
-__version__ = "2.0"
+__version__ = "1.0"
 
 import os
 import sys
@@ -41,6 +41,10 @@ elif action == 'browse-topic':
     import topic as plugin
 elif action == 'view-course':
     import course as plugin
+elif action == "browse-section":
+    import section as plugin
+elif action == "browse-group":
+    import section as plugin
 elif action == 'play':
     import play as plugin
 elif action == 'settings':

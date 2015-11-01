@@ -91,9 +91,12 @@ cacheFile = os.path.join(dataPath, 'cache.db')
 
 openSettings = addon().openSettings
 
-def directory_end():
-    set_view_thumbnail()
+
+def directory_end(force_thumb=True):
+    if force_thumb:
+        set_view_thumbnail()
     directory(handle=int(sys.argv[1]), succeeded=True)
+
 
 def set_view_thumbnail():
     if skin == 'skin.confluence':

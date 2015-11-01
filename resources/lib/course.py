@@ -17,7 +17,7 @@ class Main:
         self.action = params.get("action", 'view-course')
         self.sort_method = params.get("sort", '')
         self.topic_url = urllib.unquote_plus(params.get("url", ''))
-
+        self.course_id = urllib.unquote_plus(params.get("id", None))
         utils.set_no_sort()
         self.browse()
         return
@@ -25,15 +25,18 @@ class Main:
     def browse(self):
         url = "%s%s" % (utils.url_root, self.topic_url)
         print "url: %s" % url
-        if not re.match("-(\d+)$", url):
-            html_data = http_request.get(url)
-            soup_strainer = SoupStrainer("head")
-            beautiful_soup = BeautifulSoup(html_data, soup_strainer, convertEntities=BeautifulSoup.HTML_ENTITIES)
+        if self.course_id is None:
+            if not re.match("-(\d+)$", url):
+                html_data = http_request.get(url)
+                soup_strainer = SoupStrainer("head")
+                beautiful_soup = BeautifulSoup(html_data, soup_strainer, convertEntities=BeautifulSoup.HTML_ENTITIES)
 
-            share_url = beautiful_soup.find("meta", {"id": "ctl00_ctl00_metaShareUrl"})
-            course_code = re.findall("-(\d+)$", share_url["content"])[0]
+                share_url = beautiful_soup.find("meta", {"id": "ctl00_ctl00_metaShareUrl"})
+                course_code = re.findall("-(\d+)$", share_url["content"])[0]
+            else:
+                course_code = re.findall("-(\d+)$", url)[0]
         else:
-            course_code = re.findall("-(\d+)$", url)[0]
+            course_code = self.course_id
 
         print "code: %s" % course_code
         data_url = "%sservices/products/anonymous/%s?version=1.0.0.0&isTranscript=false&languageId=12" % (

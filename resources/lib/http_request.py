@@ -4,6 +4,8 @@ import urllib
 import urllib2
 import gzip
 import StringIO
+import json
+from urlparse import urlparse
 
 
 # POST
@@ -31,6 +33,33 @@ def post(host, url, params):
 
     # Return value
     return html_data
+
+
+def post_json(url, payload):
+    json_payload = json.dumps(payload)
+    headers = {"Content-type": "application/json; charset=UTF-8",
+               "Accept": "application/json, text/javascript, */*; q=0.01",
+               "Accept-Encoding": "gzip", "X-Requested-With": "XMLHttpRequest",
+               "Content-Length": len(json_payload)}
+    # print headers
+    print "post_json: %s" % url
+    print "payload: %s" % json_payload
+
+    req = urllib2.Request(url, json_payload, headers)
+    response = urllib2.urlopen(req)
+    resp_info = response.info()
+
+    # Compressed (gzip) response...
+    if "Content-Encoding" in resp_info and resp_info["Content-Encoding"] == "gzip":
+        html_gzipped_data = response.read()
+        string_io = StringIO.StringIO(html_gzipped_data)
+        gzipper = gzip.GzipFile(fileobj=string_io)
+        response_data = gzipper.read()
+    else:
+        response_data = response.read()
+    response.close()
+    print response_data
+    return response_data
 
 
 # GET

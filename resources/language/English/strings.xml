@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+  <string id="30000">Microsoft Virtual Academy</string>
+
+  <!-- 
+   * Settings labels 
+   -->
+  <string id="30100">Version</string>
+  <string id="30101">Author</string>
+  <string id="30102">Website</string>
+
+  <string id="30500">Page %i</string>
+
+  <string id="30201">Audiences</string>
+  <string id="30202">Technologies</string>
+  <string id="30203">TechnologiesCategory</string>
+  <string id="30204">Topics</string>
+  <string id="30205">CourseLevel</string>
+
+  <string id="30300">Sections</string>
+  <string id="30301">Audiences</string>
+  <string id="30302">Technologies</string>
+  <string id="30303">Technology Categories</string>
+  <string id="30304">Topics</string>
+  <string id="30305">Course Levels</string>
+
+</strings>
