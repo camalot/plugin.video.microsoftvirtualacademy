@@ -2,12 +2,7 @@ import sys
 import control
 import utils
 import urllib
-import json
-import re
-import http_request
-from BeautifulSoup import SoupStrainer
-from BeautifulSoup import BeautifulSoup
-
+import os
 
 # Main class
 class Main:
@@ -26,8 +21,8 @@ class Main:
             for sid in utils.section_ids:
                 if title == control.lang(sid):
                     title = control.lang(sid + 100)
-
-            utils.add_directory(title, "DefaultFolder.png", None,
+            icon = os.path.join(control.imagesPath, "%s.png" % header)
+            utils.add_directory(title, icon, icon,
                                 "%s?action=browse-section&section=%s" % (sys.argv[0], urllib.quote_plus(header)))
 
         control.directory_end()

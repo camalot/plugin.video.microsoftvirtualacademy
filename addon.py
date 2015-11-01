@@ -31,14 +31,11 @@ params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', '')))
 action = params.get('action', 'home')
 
 if action is None or action == '':
-    print "no action found: defaulting"
+    print "no action found: triggering default"
     action = 'home'
 
 if action == 'home':
     import home as plugin
-elif action == 'browse-topic':
-    print "browse-topic"
-    import topic as plugin
 elif action == 'view-course':
     import course as plugin
 elif action == "browse-section":

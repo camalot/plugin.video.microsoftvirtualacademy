@@ -42,7 +42,7 @@ class Main:
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         playlist.clear()
 
-        list_item = xbmcgui.ListItem(title, iconImage="DefaultVideo.png", thumbnailImage=thumbnail)
+        list_item = xbmcgui.ListItem(title, iconImage="DefaultVideo.png", thumbnailImage=thumbnail, path=self.video_url)
         list_item.setInfo("video", {"Title": title, "Studio": studio, "Plot": plot, "Genre": genre})
         playlist.add(self.video_url, list_item)
 

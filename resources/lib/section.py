@@ -2,12 +2,7 @@ import sys
 import control
 import utils
 import urllib
-import json
-import re
-import http_request
-from BeautifulSoup import SoupStrainer
-from BeautifulSoup import BeautifulSoup
-
+import os
 
 # Main class
 class Main:
@@ -18,6 +13,8 @@ class Main:
         self.group = urllib.unquote_plus(params.get("group", ""))
         self.current_page = int(urllib.unquote_plus(params.get("page", "1")))
         self.per_page = 10
+
+        self.icon = os.path.join(control.imagesPath, "%s.png" % self.section)
 
         utils.set_no_sort()
         if self.action == 'browse-section':
@@ -36,9 +33,7 @@ class Main:
                 for info in infos:
                     count = info["count"]
                     name = info["name"].encode('utf-8')
-                    lname = info["localizedName"].replace("\\u2013", "-")
-
-                    utils.add_directory("%s (%i)" % (name, count), "DefaultFolder.png", None,
+                    utils.add_directory("%s (%i)" % (name, count), self.icon, self.icon,
                                         "%s?action=browse-group&group=%s&section=%s&page=1" % (
                                             sys.argv[0], urllib.quote_plus(name, safe=':/'),
                                             urllib.quote_plus(self.section, safe=':/')))
@@ -51,18 +46,20 @@ class Main:
         skip = (self.current_page-1) * self.per_page
         take = self.per_page
         select_filter = [utils.create_select_criteria(self.section, self.group)]
-        resultsCount = utils.get_course_meta(select_filter)["totalResultCount"]
+        results_count = utils.get_course_meta(select_filter)["totalResultCount"]
         courses = utils.get_course_data(select_filter, skip, take)
 
         for course in courses:
             name = course["courseName"].encode('utf-8')
             thumb = course["courseImage"]
+            if thumb is None or thumb == '':
+                thumb = self.icon
             cnum = course["courseNumber"]
             cid = course["id"]
             utils.add_directory(name, thumb, thumb,
                                 "%s?action=view-course&id=%s&url=%s" % (sys.argv[0], cid, utils.url_course % cid))
 
-        if skip < resultsCount:
+        if skip < results_count:
             next_url = "%s?action=browse-group&group=%s&section=%s&page=%i" % (
                 sys.argv[0], urllib.quote_plus(self.group, safe=':/'), urllib.quote_plus(self.section, safe=':/'),
                 self.current_page + 1)

@@ -26,15 +26,7 @@ class Main:
         url = "%s%s" % (utils.url_root, self.topic_url)
         print "url: %s" % url
         if self.course_id is None:
-            if not re.match("-(\d+)$", url):
-                html_data = http_request.get(url)
-                soup_strainer = SoupStrainer("head")
-                beautiful_soup = BeautifulSoup(html_data, soup_strainer, convertEntities=BeautifulSoup.HTML_ENTITIES)
-
-                share_url = beautiful_soup.find("meta", {"id": "ctl00_ctl00_metaShareUrl"})
-                course_code = re.findall("-(\d+)$", share_url["content"])[0]
-            else:
-                course_code = re.findall("-(\d+)$", url)[0]
+            raise Exception("Missing required course id")
         else:
             course_code = self.course_id
 
@@ -75,10 +67,8 @@ class Main:
                     settings_url = href.split("=")[1]
 
                     video_settings_url = "%s/%s/videosettings.xml?v=1" % (scorm_data_url, settings_url)
-
                     video_settings_data = http_request.get(video_settings_url)
                     video_settings = xml.etree.ElementTree.XML(video_settings_data)
-                    # video_settings_root = video_settings.getroot()
 
                     media_sources = video_settings.findall('.//MediaSources')
                     for source in media_sources:
