@@ -71,15 +71,25 @@ class Main:
                     video_settings = xml.etree.ElementTree.XML(video_settings_data)
 
                     media_sources = video_settings.findall('.//MediaSources')
+                    default_media = None
                     for source in media_sources:
                         if source.attrib["videoType"] == "progressive":
                             progressives = source.findall(".//MediaSource")
                             for prog in progressives:
                                 if prog.attrib["default"] == "true":
-                                    default_media = prog.text
-                                    break
+                                    if prog.text is not None and prog.text != "":
+                                        print "using media mode: %s" % prog.attrib["videoMode"]
+                                        default_media = prog.text
+                                        break
+                                else:
+                                    if default_media is None and (prog.text is not None and prog.text != ""):
+                                        print "using media mode: %s" % prog.attrib["videoMode"]
+                                        default_media = prog.text
                             continue
-                    utils.add_video(title, thumbnail, description, "Level %s" % course_level, default_media)
+                    if default_media is not None:
+                        utils.add_video(title, thumbnail, description, "Level %s" % course_level, default_media)
+                    else:
+                        print "unable to find media for %s" % video_settings_url
                 except Exception, e:
                     print str(e)
 
