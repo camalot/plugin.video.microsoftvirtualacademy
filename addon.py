@@ -42,6 +42,8 @@ elif action == "browse-section":
     import section as plugin
 elif action == "browse-group":
     import section as plugin
+elif action == "search":
+    import searcher as plugin
 elif action == 'play':
     import play as plugin
 elif action == 'settings':

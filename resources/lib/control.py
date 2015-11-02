@@ -77,7 +77,7 @@ settingsFile = os.path.join(dataPath, 'settings.xml')
 
 databaseFile = os.path.join(dataPath, 'settings.db')
 
-favouritesFile = os.path.join(dataPath, 'favourites.db')
+favoritesFile = os.path.join(dataPath, 'favorites.db')
 
 sourcescacheFile = os.path.join(dataPath, 'sources.db')
 

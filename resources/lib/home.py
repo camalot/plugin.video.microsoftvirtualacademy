@@ -4,6 +4,7 @@ import utils
 import urllib
 import os
 
+
 # Main class
 class Main:
     def __init__(self):
@@ -24,6 +25,12 @@ class Main:
             icon = os.path.join(control.imagesPath, "%s.png" % header)
             utils.add_directory(title, icon, icon,
                                 "%s?action=browse-section&section=%s" % (sys.argv[0], urllib.quote_plus(header)))
+
+        utils.add_directory(utils.text_green % control.lang(30501), utils.icon_search, utils.icon_search,
+                            "%s?action=search" % sys.argv[0])
+
+        utils.add_directory(utils.text_green % control.lang(30502), utils.icon_settings, None,
+                            "%s?action=settings" % (sys.argv[0]))
 
         control.directory_end()
         return

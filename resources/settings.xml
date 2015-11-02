@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <!--<setting id="video_format" type="enum" label="30300" default="0"   lvalues="30301|30302|30303" />-->
+
+    <category label="30800">
+        <setting label="30900" type="bool" id="1033" default="true" />
+        <setting label="30901" type="bool" id="1025" default="false" />
+        <setting label="30902" type="bool" id="2052" default="false" />
+        <setting label="30903" type="bool" id="1028" default="false" />
+        <setting label="30904" type="bool" id="1029" default="false" />
+        <setting label="30905" type="bool" id="1036" default="false" />
+        <setting label="30906" type="bool" id="1031" default="false" />
+        <setting label="30907" type="bool" id="1038" default="false" />
+        <setting label="30908" type="bool" id="1040" default="false" />
+        <setting label="30909" type="bool" id="1041" default="false" />
+        <setting label="30910" type="bool" id="1042" default="false" />
+        <setting label="30911" type="bool" id="1045" default="false" />
+        <setting label="30912" type="bool" id="2070" default="false" />
+        <setting label="30913" type="bool" id="1046" default="false" />
+        <setting label="30914" type="bool" id="1049" default="false" />
+        <setting label="30915" type="bool" id="1034" default="false" />
+        <setting label="30916" type="bool" id="2058" default="false" />
+        <setting label="30917" type="bool" id="1053" default="false" />
+        <setting label="30918" type="bool" id="1055" default="false" />
+    </category>
+</settings>

@@ -10,6 +10,8 @@
   <string id="30102">Website</string>
 
   <string id="30500">Page %i</string>
+  <string id="30501">Search</string>
+  <string id="30502">Settings</string>
 
   <string id="30201">Audiences</string>
   <string id="30202">Technologies</string>
@@ -23,5 +25,29 @@
   <string id="30303">Technology Categories</string>
   <string id="30304">Topics</string>
   <string id="30305">Course Levels</string>
+
+  <string id="30600">1033,1025,2052,1028,1029,1036,1031,1038,1040,1041,1042,1045,2070,1046,1049,1034,2058,1053,1055</string>
+
+  <string id="30800">Languages</string>
+
+  <string id="30900">English</string>
+  <string id="30901">Arabic</string>
+  <string id="30902">Chinese Simplified</string>
+  <string id="30903">Chinese Traditional</string>
+  <string id="30904">Czech</string>
+  <string id="30905">French</string>
+  <string id="30906">German</string>
+  <string id="30907">Hungarian</string>
+  <string id="30908">Italian</string>
+  <string id="30909">Japanese</string>
+  <string id="30910">Korean</string>
+  <string id="30911">Polish</string>
+  <string id="30912">Portuguese</string>
+  <string id="30913">Portuguese (Brazil)</string>
+  <string id="30914">Russian</string>
+  <string id="30915">Spanish</string>
+  <string id="30916">Spanish (Latin America)</string>
+  <string id="30917">Swedish</string>
+  <string id="30918">Turkish</string>
 
 </strings>
