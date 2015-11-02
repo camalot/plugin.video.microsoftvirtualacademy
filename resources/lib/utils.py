@@ -31,7 +31,6 @@ default_lanugage = {"SelectOnField": "LCID", "SelectTerm": "1033", "SelectMatchO
 def add_video(title, thumbnail, plot, genre, video_url):
     list_item = control.item(title, iconImage="DefaultVideo.png", thumbnailImage=thumbnail, path=video_url)
     list_item.setInfo("video", {"Title": title, "Studio": "Microsoft Channel 9", "Plot": plot, "Genre": genre})
-    list_item.setProperty("IsPlayable", "true")
     list_item.setArt({"thumb": thumbnail, "fanart": thumbnail, "landscape": thumbnail, "poster": thumbnail})
     plugin_play_url = '%s?action=play&video_url=%s' % (sys.argv[0], urllib.quote_plus(video_url))
     control.addItem(handle=int(sys.argv[1]), url=plugin_play_url, listitem=list_item, isFolder=False)
