@@ -8,6 +8,7 @@ import control
 from BeautifulSoup import SoupStrainer
 from BeautifulSoup import BeautifulSoup
 import http_request
+from datetime import timedelta
 
 url_root = "https://mva.microsoft.com/"
 url_api = "https://api-mlxprod.microsoft.com/"
@@ -28,12 +29,24 @@ default_filter = {"SelectCriteria": [], "DisplayFields": [],
                "UILangaugeCode": "1033", "UserLanguageCode": "1033"}
 default_lanugage = {"SelectOnField": "LCID", "SelectTerm": "1033", "SelectMatchOption": 2}
 
-def add_video(title, thumbnail, plot, genre, video_url):
+
+def add_video(title, thumbnail, plot, genre, video_url, dbid,  video_duration=None):
     list_item = control.item(title, iconImage="DefaultVideo.png", thumbnailImage=thumbnail)
     list_item.setInfo("video", {"Title": title, "Studio": "Microsoft Channel 9", "Plot": plot, "Genre": genre})
+    list_item.setProperty("ListItem.IsResumable", "true")
+    if video_duration is not None:
+        seconds = convert_timespan(video_duration).total_seconds()
+        list_item.setProperty("ListItem.TotalTime", str(seconds))
+        list_item.setProperty("ListItem.EndTime", str(seconds))
+    list_item.setProperty("ListItem.DBID", str(seconds))
     list_item.setArt({"thumb": thumbnail, "fanart": thumbnail, "landscape": thumbnail, "poster": thumbnail})
     plugin_play_url = '%s?action=play&video_url=%s' % (sys.argv[0], urllib.quote_plus(video_url))
     control.addItem(handle=int(sys.argv[1]), url=plugin_play_url, listitem=list_item, isFolder=False)
+
+
+def convert_timespan(timespan="00:00:00"):
+    groups = timespan.split(":")
+    return timedelta(seconds=int(groups[2]), minutes= int(groups[1]), hours=int(groups[0]))
 
 
 def add_next_page(item_url, page):

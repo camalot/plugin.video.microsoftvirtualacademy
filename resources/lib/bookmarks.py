@@ -17,8 +17,10 @@ def getBookmark(name, imdb='0'):
         for i in imdb:
             idFile.update(str(i))
         idFile = str(idFile.hexdigest())
+        control.makeFile(control.dataPath)
         dbcon = database.connect(control.databaseFile)
         dbcur = dbcon.cursor()
+        _create_db_(dbcur)
         dbcur.execute("SELECT * FROM bookmark WHERE idFile = '%s'" % idFile)
         match = dbcur.fetchone()
         offset = str(match[1])
@@ -40,7 +42,7 @@ def addBookmark(currentTime, name, imdb='0'):
         control.makeFile(control.dataPath)
         dbcon = database.connect(control.databaseFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("CREATE TABLE IF NOT EXISTS bookmark (""idFile TEXT, ""timeInSeconds TEXT, ""UNIQUE(idFile)"");")
+        _create_db_(dbcur)
         dbcur.execute("DELETE FROM bookmark WHERE idFile = '%s'" % idFile)
         dbcur.execute("INSERT INTO bookmark Values (?, ?)", (idFile, timeInSeconds))
         dbcon.commit()
@@ -59,9 +61,13 @@ def deleteBookmark(name, imdb='0'):
         control.makeFile(control.dataPath)
         dbcon = database.connect(control.databaseFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("CREATE TABLE IF NOT EXISTS bookmark (""idFile TEXT, ""timeInSeconds TEXT, ""UNIQUE(idFile)"");")
+        _create_db_(dbcur)
         dbcur.execute("DELETE FROM bookmark WHERE idFile = '%s'" % idFile)
         dbcon.commit()
     except:
         pass
 
+
+def _create_db_(dbcur):
+    print "create table: bookmarks"
+    dbcur.execute("CREATE TABLE IF NOT EXISTS bookmark (""idFile TEXT, ""timeInSeconds TEXT, ""UNIQUE(idFile)"");")
