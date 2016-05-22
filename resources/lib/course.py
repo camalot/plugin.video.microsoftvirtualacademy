@@ -59,37 +59,47 @@ class Main:
         for org in organizations["organization"]:
             for item in org["item"]:
                 try:
-                    first_item = item["item"][0]
-                    # identifier = item["@identifier"]
-                    title = item["title"]
-                    resource = first_item["resource"]
-                    href = resource["@href"]
-                    settings_url = href.split("=")[1]
+                    for video_item in item["item"]:
+                        # identifier = item["@identifier"]
+                        title = item["title"]
+                        resource = video_item["resource"]
+                        href = resource["@href"]
+                        settings_url = href.split("=")[1]
 
-                    video_settings_url = "%s/%s/videosettings.xml?v=1" % (scorm_data_url, settings_url)
-                    video_settings_data = http_request.get(video_settings_url)
-                    video_settings = xml.etree.ElementTree.XML(video_settings_data)
-
-                    media_sources = video_settings.findall('.//MediaSources')
-                    default_media = None
-                    for source in media_sources:
-                        if source.attrib["videoType"] == "progressive":
-                            progressives = source.findall(".//MediaSource")
-                            for prog in progressives:
-                                if prog.attrib["default"] == "true":
-                                    if prog.text is not None and prog.text != "":
-                                        print "using media mode: %s" % prog.attrib["videoMode"]
-                                        default_media = prog.text
-                                        break
-                                else:
-                                    if default_media is None and (prog.text is not None and prog.text != ""):
-                                        print "using media mode: %s" % prog.attrib["videoMode"]
-                                        default_media = prog.text
+                        resource_meta = resource["metadata"]
+                        print "resource_meta: %s" % resource_meta
+                        resource_type = resource_meta["learningresourcetype"]
+                        print "resource_type: %s" % resource_type
+                        if not re.match("^[Vv]ideo$", resource_type):
                             continue
-                    if default_media is not None:
-                        utils.add_video(title, thumbnail, description, "Level %s" % course_level, default_media)
-                    else:
-                        print "unable to find media for %s" % video_settings_url
+
+                        video_duration = resource_meta["duration"]
+
+                        video_settings_url = "%s/%s/videosettings.xml?v=1" % (scorm_data_url, settings_url)
+                        video_settings_data = http_request.get(video_settings_url)
+                        video_settings = xml.etree.ElementTree.XML(video_settings_data)
+
+                        media_sources = video_settings.findall('.//MediaSources')
+                        default_media = None
+                        for source in media_sources:
+                            if source.attrib["videoType"] == "progressive":
+                                progressives = source.findall(".//MediaSource")
+                                for prog in progressives:
+                                    if prog.attrib["default"] == "true":
+                                        if prog.text is not None and prog.text != "":
+                                            print "using media mode: %s" % prog.attrib["videoMode"]
+                                            default_media = prog.text
+                                            break
+                                    else:
+                                        if default_media is None and (prog.text is not None and prog.text != ""):
+                                            print "using media mode: %s" % prog.attrib["videoMode"]
+                                            default_media = prog.text
+                                continue
+                        if default_media is not None:
+                            utils.add_video(title, thumbnail, description, "Level %s" % course_level, default_media,
+                                            course_code, video_duration)
+                        else:
+                            print "unable to find media for %s" % video_settings_url
                 except Exception, e:
                     print str(e)
 

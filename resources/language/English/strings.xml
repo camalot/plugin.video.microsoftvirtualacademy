@@ -13,6 +13,12 @@
   <string id="30501">Search</string>
   <string id="30502">Settings</string>
 
+  <string id="30461">Resume from</string>
+  <string id="30462">Start from beginning</string>
+  <string id="30463">Resume</string>
+  <string id="30464">Loaded in</string>
+  <string id="30465">seconds</string>
+
   <string id="30201">Audiences</string>
   <string id="30202">Technologies</string>
   <string id="30203">TechnologiesCategory</string>

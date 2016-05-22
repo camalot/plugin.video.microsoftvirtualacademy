@@ -65,7 +65,7 @@ transPath = xbmc.translatePath
 
 skinPath = xbmc.translatePath('special://skin/')
 
-addonPath = xbmc.translatePath(addonInfo('path'))
+addonPath = xbmc.translatePath(addonInfo('path')).decode('utf-8')
 
 dataPath = xbmc.translatePath(addonInfo('profile')).decode('utf-8')
 

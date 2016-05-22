@@ -4,11 +4,13 @@ import re
 import xbmc
 import xbmcgui
 import xbmcaddon
+import xbmcplugin
 from BeautifulSoup import SoupStrainer
 from BeautifulSoup import BeautifulSoup
 import http_request
 import control
 import utils
+from player import player
 
 
 class Main:
@@ -24,6 +26,8 @@ class Main:
         studio = unicode(xbmc.getInfoLabel("ListItem.Studio"), "utf-8")
         plot = unicode(xbmc.getInfoLabel("ListItem.Plot"), "utf-8")
         genre = unicode(xbmc.getInfoLabel("ListItem.Genre"), "utf-8")
+        total_time = unicode(xbmc.getInfoLabel("ListItem.EndTime"), "utf-8")
+        dbid = unicode(xbmc.getInfoLabel("ListItem.DBID"), "utf-8")
 
         # Show wait dialog while parsing data...
         dialog_wait = xbmcgui.DialogProgress()
@@ -39,18 +43,21 @@ class Main:
             return
 
         # Play video...
-        playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
-        playlist.clear()
+        # playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+        # playlist.clear()
 
-        list_item = xbmcgui.ListItem(title, iconImage="DefaultVideo.png", thumbnailImage=thumbnail)
-        list_item.setInfo("video", {"Title": title, "Studio": studio, "Plot": plot, "Genre": genre})
-        playlist.add(self.video_url, list_item)
+        # list_item = xbmcgui.ListItem(title, iconImage="DefaultVideo.png", thumbnailImage=thumbnail)
+        # list_item.setInfo("video", {"Title": title, "Studio": studio, "Plot": plot, "Genre": genre})
+        # playlist.add(self.video_url, list_item)
 
         # Close wait dialog...
         dialog_wait.close()
         del dialog_wait
 
         # Play video...
-        xbmc_player = xbmc.Player()
-        xbmc_player.play(playlist)
+        # xbmc_player = xbmc.Player()
+
+        player().run({"url": self.video_url, "thumb": thumbnail, "plot": plot, "genre": genre, "title": title,
+                    "endTime": total_time, "dbid": dbid})
+        # xbmc_player.play(playlist)
         return
