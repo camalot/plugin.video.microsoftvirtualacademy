@@ -1,0 +1,5 @@
+- 1.0.4
+  - added to repository.camalot
+  
+ - 1.0.3
+  - Inital release
