@@ -13,12 +13,15 @@
 		<platform>all</platform>
 		<summary>Watch videos from Microsoft Virtual Academy</summary>
 		<description>Watch videos from Virtual Academy https://mva.microsoft.com/</description>
+		<license><![CDATA[http://www.apache.org/licenses/LICENSE-2.0]]></license>
+		<source><![CDATA[https://github.com/camalot/plugin.video.microsoftvirtualacademy]]></source>
+		<website><![CDATA[https://github.com/camalot/plugin.video.microsoftvirtualacademy]]></website>
 	</extension>
 
-	<extension point="xbmc.addon.repository"
-              name="camalot's repository">
-		<info compressed="true">https://camalot.github.io/repository.camalot/addons.xml</info>
-		<checksum>https://camalot.github.io/repository.camalot/addons.xml.md5</checksum>
-		<datadir zip="true">https://camalot.github.io/repository.camalot/plugin.video.microsoftvirtualacademy</datadir>
-  	</extension>
+	<!--<extension point="xbmc.addon.repository"-->
+              <!--name="camalot's repository">-->
+		<!--<info compressed="true">https://camalot.github.io/repository.camalot/addons.xml</info>-->
+		<!--<checksum>https://camalot.github.io/repository.camalot/addons.xml.md5</checksum>-->
+		<!--<datadir zip="true">https://camalot.github.io/repository.camalot/</datadir>-->
+  	<!--</extension>-->
 </addon>
